@@ -10,6 +10,7 @@ Contrastive Active Learning (CAL) selects samples based on KL divergence between
 
 1. **ANN Search**: Replace exact KNN with ball-tree based approximate nearest neighbor search
 2. **Probability Caching**: Cache softmax probabilities for labeled samples to avoid redundant computations
+3. **Milvus Backend** (optional): Use Milvus vector database for scalable KNN search with IVF/HNSW indexes
 
 ---
 
@@ -43,6 +44,12 @@ bash run_optimization_comparison.sh
 bash run_ablation.sh
 ```
 
+### Run Milvus Backend Comparison
+
+```bash
+bash run_milvus_comparison.sh
+```
+
 ### View Results
 
 ```bash
@@ -55,11 +62,12 @@ python show_acc.py --ablation
 ```
 ├── run_al.py                    # Main AL experiment script
 ├── acquisition/
-│   └── cal.py                   # CAL with ANN + caching optimizations
+│   └── cal.py                   # CAL with ANN + caching + Milvus
 ├── utilities/                   # Data loading, training, metrics
-├── run_optimization_comparison.sh
-├── run_ablation.sh
-└── show_acc.py
+├── run_optimization_comparison.sh  # In-memory optimization comparison
+├── run_ablation.sh              # Ablation study
+├── run_milvus_comparison.sh     # Milvus backend comparison
+└── show_acc.py                  # Results visualization
 ```
 
 ---
@@ -70,6 +78,8 @@ python show_acc.py --ablation
 |----------|-------------|---------|
 | `--use_sklearn_ann` | Use ball-tree ANN | False |
 | `--cache_probabilities` | Enable probability caching | False |
+| `--use_milvus` | Use Milvus vector database | False |
+| `--milvus_index_type` | Milvus index type (FLAT/IVF_FLAT/HNSW) | FLAT |
 | `--init_train_data` | Initial labeled data | 1% |
 | `--acquisition_size` | Samples per iteration | 2% |
 | `--budget` | Total annotation budget | 15% |
@@ -81,9 +91,13 @@ python show_acc.py --ablation
 python run_al.py --dataset_name sst-2 --acquisition cal \
     --use_sklearn_ann False --cache_probabilities False
 
-# Optimized
+# Optimized (in-memory ANN + cache)
 python run_al.py --dataset_name sst-2 --acquisition cal \
     --use_sklearn_ann True --cache_probabilities True
+
+# Milvus backend (IVF + cache)
+python run_al.py --dataset_name sst-2 --acquisition cal \
+    --use_milvus True --milvus_index_type IVF_FLAT --cache_probabilities True
 ```
 
 ---
