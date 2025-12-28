@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Environments
+.env
+.venv
+env/
+venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Data and models (download separately)
+data/
+cache/
+checkpoints/
+
+# Experiment outputs
+experiments/
+*.log
+*.db
+*.db.lock
+nohup.out
+
+# OS
+.DS_Store
+Thumbs.db
