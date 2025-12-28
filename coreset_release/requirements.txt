@@ -1,0 +1,16 @@
+# Core dependencies
+numpy>=1.21.0
+torch>=2.0.0
+transformers>=4.30.0
+datasets>=2.14.0
+sentence-transformers>=2.2.0
+scikit-learn>=1.0.0
+faiss-cpu>=1.7.0  # or faiss-gpu for GPU support
+tqdm>=4.65.0
+
+# Evaluation metrics
+sacrebleu>=2.3.0
+textstat>=0.7.0
+
+# Optional: Milvus support
+pymilvus>=2.3.0
