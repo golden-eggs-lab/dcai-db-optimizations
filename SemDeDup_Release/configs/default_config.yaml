@@ -1,0 +1,40 @@
+# Default configuration for experiments
+
+dataset:
+  name: CIFAR-10
+  size: 50000
+  embedding_dim: 512
+
+clustering:
+  num_clusters: 10
+  niter: 20
+  spherical: true
+
+deduplication:
+  eps_list: [0.05, 0.10, 0.15]
+  
+  # ANN configuration
+  ann:
+    nlist: 100
+    nprobe: 10
+  
+  # Milvus configuration
+  milvus:
+    k_neighbors: 100
+    nlist: 128
+
+training:
+  batch_size: 128
+  num_epochs: 20
+  learning_rate: 0.1
+  momentum: 0.9
+  weight_decay: 0.0005
+  
+  # Data augmentation
+  augmentation:
+    random_crop: true
+    crop_padding: 4
+    random_flip: true
+
+# Reproducibility
+seed: 42
