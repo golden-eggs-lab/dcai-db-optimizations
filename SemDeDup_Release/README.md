@@ -67,17 +67,17 @@ python experiments/compute_embeddings.py --dataset cifar10 --output embeddings/c
 
 ```bash
 # Run experiment comparing SemDeDup vs FairDeDup (all 8 configurations)
-python experiments/run_experiment.py --seed 42 --run-id run1
-
-# Skip downstream evaluation (faster)
-python experiments/run_experiment.py --seed 42 --skip-downstream
+python experiments/run_cifar10_experiment.py --seed 42 --run-id run1
 ```
 
 ### Run with Milvus Vector Database
 
 ```bash
 # Using Milvus Lite (local, no server needed)
-python experiments/run_milvus_experiment.py --seed 42 --run-id milvus_run1
+python experiments/run_cifar10_milvus_experiment.py --seed 42 --run-id milvus_run1
+
+# Skip downstream evaluation (faster)
+python experiments/run_cifar10_milvus_experiment.py --seed 42 --skip-downstream
 ```
 
 ---
@@ -106,15 +106,13 @@ SemDeDup_Release/
 ├── README.md                    # This file
 ├── environment.yml              # Conda environment
 │
-├── core/                        # Core algorithms
-│   ├── semdedup.py              # SemDeDup: greedy sequential dedup
-│   ├── fairdedup.py             # FairDeDup: fair Union-Find dedup
-│   └── clustering.py            # K-Means clustering utilities
-│
 ├── experiments/                 # Experiment scripts
-│   ├── run_experiment.py        # FAISS in-memory experiment
-│   ├── run_milvus_experiment.py # Milvus vector DB experiment
-│   └── compute_embeddings.py    # Embedding generation
+│   ├── run_cifar10_experiment.py       # FAISS in-memory experiment
+│   ├── run_cifar10_milvus_experiment.py # Milvus vector DB experiment
+│   └── compute_embeddings.py           # Embedding generation
+│
+├── embeddings/                  # Pre-computed embeddings (generated)
+│   └── README.md
 │
 ├── configs/                     # Configuration files
 │   └── default_config.yaml      # Default experiment settings
@@ -128,9 +126,15 @@ SemDeDup_Release/
 ### Command Line Arguments
 
 ```bash
-python experiments/run_experiment.py \
+python experiments/run_cifar10_experiment.py \
     --seed 42 \                    # Random seed
-    --run-id experiment1 \         # Unique run identifier
+    --run-id experiment1           # Unique run identifier
+```
+
+```bash
+python experiments/run_cifar10_milvus_experiment.py \
+    --seed 42 \                    # Random seed
+    --run-id milvus1 \             # Unique run identifier
     --skip-downstream              # Skip classification eval
 ```
 
