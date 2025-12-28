@@ -1,4 +1,4 @@
-# Semantic Deduplication: SemDeDup vs FairDeDup
+# Semantic Deduplication: SemDeDup and FairDeDup
 
 This repository contains implementations of two semantic deduplication methods with optimization techniques for efficient large-scale data deduplication.
 
